@@ -81,7 +81,7 @@ class Stephanis_Update_Control {
 
 		add_settings_field(
 			'update_control_core',
-			sprintf( '<label for="update_control_core">%1$s</label>', __( 'Automatic Major Core Updates?', 'update-control' ) ),
+			sprintf( '<label for="update_control_core">%1$s</label>', __( 'Automatic Core Update Level?', 'update-control' ) ),
 			array( __CLASS__, 'update_control_core_cb' ),
 			'general',
 			'update-control'
