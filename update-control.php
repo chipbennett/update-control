@@ -26,8 +26,8 @@ class Stephanis_Update_Control {
 			return; // It's all disabled, no need to check the others.
 		}
 
-		if ( $options['core'] ) {
-			add_filter( 'auto_upgrade_core', '__return_true', 1 );
+		if ( in_array( $options['core'], array( 'dev', 'major', 'minor' ) ) ) {
+			add_filter( 'allow_' . $option['core'] . '_auto_core_updates', '__return_true', 1 );
 		}
 
 		if ( $options['plugin'] ) {
@@ -41,10 +41,11 @@ class Stephanis_Update_Control {
 
 	function get_options() {
 		$defaults = array(
-			'active'     => true,
-			'core'       => false,
-			'plugin'     => false,
-			'theme'      => false,
+			'active'      => 'yes',
+			'core'        => 'minor',
+			'plugin'      => false,
+			'theme'       => false,
+			'translation' => true,
 		);
 		$args = get_option( 'update_control_options', array() );
 		return wp_parse_args( $args, $defaults );
@@ -72,7 +73,7 @@ class Stephanis_Update_Control {
 
 		add_settings_field(
 			'update_control_active',
-			sprintf( '<label for="update_control_active">%1$s</label>', __( 'Permit Automatic Updates?', 'update-control' ) ),
+			sprintf( '<label for="update_control_active">%1$s</label>', __( 'Automatic Updates Enabled?', 'update-control' ) ),
 			array( __CLASS__, 'update_control_active_cb' ),
 			'general',
 			'update-control'
@@ -80,7 +81,7 @@ class Stephanis_Update_Control {
 
 		add_settings_field(
 			'update_control_core',
-			sprintf( '<label for="update_control_core">%1$s</label>', __( 'Permit Automatic Major Core Updates?', 'update-control' ) ),
+			sprintf( '<label for="update_control_core">%1$s</label>', __( 'Automatic Major Core Updates?', 'update-control' ) ),
 			array( __CLASS__, 'update_control_core_cb' ),
 			'general',
 			'update-control'
@@ -102,6 +103,14 @@ class Stephanis_Update_Control {
 			'update-control'
 		);
 
+		add_settings_field(
+			'update_control_translation',
+			sprintf( '<label for="update_control_translation">%1$s</label>', __( 'Permit Automatic Translation Updates?', 'update-control' ) ),
+			array( __CLASS__, 'update_control_translation_cb' ),
+			'general',
+			'update-control'
+		);
+
 		register_setting( 'general', 'update_control_options', array( __CLASS__, 'sanitize_options' ) );
 	}
 
@@ -116,13 +125,16 @@ class Stephanis_Update_Control {
 			</p>
 			<script>
 				jQuery(document).ready(function($){
-					$('#update_control_active').click(function(){
-						$('.update_control_dependency').attr( 'disabled', ! this.checked );
-					}).trigger('click');
+					$('#update_control_active').change(function(){
+						if ( 'yes' != $(this).val() )
+							$('.update_control_dependency').attr( 'readonly', 'readonly' );
+						else
+							$('.update_control_dependency' ).removeAttr( 'readonly' );
+					}).trigger('change');
 				});
 			</script>
 			<style>
-			.update_control_dependency[disabled] {
+			.update_control_dependency[readonly] {
 				opacity: 0.4;
 			}
 			</style>
@@ -131,13 +143,20 @@ class Stephanis_Update_Control {
 
 	function update_control_active_cb() {
 		?>
-		<input type="checkbox" id="update_control_active" name="update_control_options[active]" <?php checked( self::get_option( 'active' ) ); ?> />
+		<select id="update_control_active" name="update_control_options[active]">
+			<option <?php selected( 'yes' == self::get_option( 'active' ) ); ?> value="yes"><?php _e( 'Yes', 'update-control' ); ?></option>
+			<option <?php selected( 'no' == self::get_option( 'active' ) ); ?> value="no"><?php _e( 'No', 'update-control' ); ?></option>
+		</select>
 		<?php
 	}
 
 	function update_control_core_cb() {
 		?>
-		<input type="checkbox" class="update_control_dependency" id="update_control_core" name="update_control_options[core]" <?php checked( self::get_option( 'core' ) ); ?> />
+		<select class="update_control_dependency" id="update_control_core" name="update_control_options[core]">
+			<option <?php checked( 'minor' == self::get_option( 'core' ) ); ?> value="minor"><?php _e( 'Minor Updates', 'update-control' ); ?></option>
+			<option <?php checked( 'major' == self::get_option( 'core' ) ); ?> value="major"><?php _e( 'Major Updates', 'update-control' ); ?></option>
+			<option <?php checked( 'dev' == self::get_option( 'core' ) ); ?> value="dev"><?php _e( 'Development Updates', 'update-control' ); ?></option>
+		</select>
 		<?php
 	}
 
@@ -153,13 +172,20 @@ class Stephanis_Update_Control {
 		<?php
 	}
 
+	function update_control_translation_cb() {
+		?>
+		<input type="checkbox" class="update_control_dependency" id="update_control_translation" name="update_control_options[translation]" <?php checked( self::get_option( 'translation' ) ); ?> />
+		<?php
+	}
+
 	function sanitize_options( $options ) {
 		$options = (array) $options;
 
-		$options['active'] = ! empty( $options['active'] );
-		$options['core']   = ! empty( $options['core']   );
+		$options['active'] = ( in_array( $options['active'], array( 'yes', 'no' ) ) ? $options['active'] : 'yes' );
+		$options['core'] = ( in_array( $options['core'], array( 'minor', 'major', 'dev' ) ) ? $options['core'] : 'minor' );
 		$options['plugin'] = ! empty( $options['plugin'] );
 		$options['theme']  = ! empty( $options['theme']  );
+		$options['translation']  = ! empty( $options['translation']  );
 
 		return $options;
 	}
