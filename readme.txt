@@ -1,5 +1,5 @@
 === Plugin Name ===
-Contributors: georgestephanis
+Contributors: georgestephanis, chipbennett
 Tags: automatic updates, updates
 Requires at least: 3.7-alpha
 Tested up to: 3.7-alpha
