@@ -41,7 +41,7 @@ class Stephanis_Update_Control {
 
 	function get_options() {
 		$defaults = array(
-			'active'      => true,
+			'active'      => 'yes',
 			'core'        => 'minor',
 			'plugin'      => false,
 			'theme'       => false,
