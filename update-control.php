@@ -21,31 +21,58 @@ class Stephanis_Update_Control {
 
 		// Do these at priority 1, so other folks can easily override it.
 
-		if ( ! $options['active'] ) {
+		if ( 'no' == $options['active'] ) {
 			add_filter( 'auto_upgrader_disabled', '__return_true', 1 );
-			return; // It's all disabled, no need to check the others.
+		} else {
+
+			if ( in_array( $options['core'], array( 'dev', 'major', 'minor' ) ) ) {
+				add_filter( 'allow_' . $option['core'] . '_auto_core_updates', '__return_true', 1 );
+			}
+
+			if ( $options['plugin'] ) {
+				add_filter( 'auto_upgrade_plugin', '__return_true', 1 );
+			}
+
+			if ( $options['theme'] ) {
+				add_filter( 'auto_upgrade_theme', '__return_true', 1 );
+			}
+
 		}
 
-		if ( in_array( $options['core'], array( 'dev', 'major', 'minor' ) ) ) {
-			add_filter( 'allow_' . $option['core'] . '_auto_core_updates', '__return_true', 1 );
+		if ( 'no' == $options['emailactive'] || ! ( $options['successemail'] || $options['failureemail'] || $options['criticalemail'] ) ) {
+			add_filter( 'auto_core_update_send_email', '__return_false', 1 );
+		} else {
+			add_filter( 'auto_core_update_send_email', array( __CLASS__, 'filter_email' ), 1, 2 );
 		}
 
-		if ( $options['plugin'] ) {
-			add_filter( 'auto_upgrade_plugin', '__return_true', 1 );
-		}
+	}
 
-		if ( $options['theme'] ) {
-			add_filter( 'auto_upgrade_theme', '__return_true', 1 );
-		}
+	function filter_email( $bool, $type ) {
+		$options = self::get_options();
+
+		if ( 'success' == $type && ! $options['successemail'] )
+			return false;
+
+		if ( 'fail' == $type && ! $options['failureemail'] )
+			return false;
+
+		if ( 'critical' == $type && ! $options['criticalemail'] )
+			return false;
+
+		return $bool;
 	}
 
 	function get_options() {
 		$defaults = array(
-			'active'      => 'yes',
-			'core'        => 'minor',
-			'plugin'      => false,
-			'theme'       => false,
-			'translation' => true,
+			'active'			=> 'yes',
+			'core'				=> 'minor',
+			'plugin'			=> false,
+			'theme'				=> false,
+			'translation'		=> true,
+			'emailactive'		=> 'yes',
+			'successemail'		=> true,
+			'failureemail'		=> true,
+			'criticalemail'		=> true,
 		);
 		$args = get_option( 'update_control_options', array() );
 		return wp_parse_args( $args, $defaults );
@@ -111,6 +138,38 @@ class Stephanis_Update_Control {
 			'update-control'
 		);
 
+		add_settings_field(
+			'update_control_email_active',
+			sprintf( '<label for="update_control_email_active">%1$s</label>', __( 'Update Emails Enabled?', 'update-control' ) ),
+			array( __CLASS__, 'update_control_email_active_cb' ),
+			'general',
+			'update-control'
+		);
+
+		add_settings_field(
+			'update_control_email_success',
+			sprintf( '<label for="update_control_email_success">%1$s</label>', __( 'Send Emails for Successful Updates?', 'update-control' ) ),
+			array( __CLASS__, 'update_control_email_success_cb' ),
+			'general',
+			'update-control'
+		);
+
+		add_settings_field(
+			'update_control_email_failure',
+			sprintf( '<label for="update_control_email_failure">%1$s</label>', __( 'Send Emails for Failed Updates?', 'update-control' ) ),
+			array( __CLASS__, 'update_control_email_failure_cb' ),
+			'general',
+			'update-control'
+		);
+
+		add_settings_field(
+			'update_control_email_critical',
+			sprintf( '<label for="update_control_email_critical">%1$s</label>', __( 'Send Emails for Critically Failed Updates?', 'update-control' ) ),
+			array( __CLASS__, 'update_control_email_critical_cb' ),
+			'general',
+			'update-control'
+		);
+
 		register_setting( 'general', 'update_control_options', array( __CLASS__, 'sanitize_options' ) );
 	}
 
@@ -131,10 +190,18 @@ class Stephanis_Update_Control {
 						else
 							$('.update_control_dependency' ).removeAttr( 'readonly' );
 					}).trigger('change');
+
+					$('#update_control_email_active').change(function(){
+						if ( 'yes' != $(this).val() )
+							$('.update_control_email_dependency').attr( 'readonly', 'readonly' );
+						else
+							$('.update_control_email_dependency' ).removeAttr( 'readonly' );
+					}).trigger('change');
 				});
 			</script>
 			<style>
-			.update_control_dependency[readonly] {
+			.update_control_dependency[readonly],
+			.update_control_email_dependency[readonly] {
 				opacity: 0.4;
 			}
 			</style>
@@ -178,6 +245,33 @@ class Stephanis_Update_Control {
 		<?php
 	}
 
+	function update_control_email_active_cb() {
+		?>
+		<select id="update_control_email_active" name="update_control_options[emailactive]">
+			<option <?php selected( 'yes' == self::get_option( 'emailactive' ) ); ?> value="yes"><?php _e( 'Yes', 'update-control' ); ?></option>
+			<option <?php selected( 'no' == self::get_option( 'emailactive' ) ); ?> value="no"><?php _e( 'No', 'update-control' ); ?></option>
+		</select>
+		<?php
+	}
+
+	function update_control_email_success_cb() {
+		?>
+		<input type="checkbox" class="update_control_email_dependency" id="update_control_email_success" name="update_control_options[successemail]" <?php checked( self::get_option( 'successemail' ) ); ?> />
+		<?php
+	}
+
+	function update_control_email_failure_cb() {
+		?>
+		<input type="checkbox" class="update_control_email_dependency" id="update_control_email_failure" name="update_control_options[failureemail]" <?php checked( self::get_option( 'failureemail' ) ); ?> />
+		<?php
+	}
+
+	function update_control_email_critical_cb() {
+		?>
+		<input type="checkbox" class="update_control_email_dependency" id="update_control_email_critical" name="update_control_options[criticalemail]" <?php checked( self::get_option( 'criticalemail' ) ); ?> />
+		<?php
+	}
+
 	function sanitize_options( $options ) {
 		$options = (array) $options;
 
@@ -186,6 +280,10 @@ class Stephanis_Update_Control {
 		$options['plugin'] = ! empty( $options['plugin'] );
 		$options['theme']  = ! empty( $options['theme']  );
 		$options['translation']  = ! empty( $options['translation']  );
+		$options['emailactive'] = ( in_array( $options['emailactive'], array( 'yes', 'no' ) ) ? $options['emailactive'] : 'yes' );
+		$options['successemail'] = ! empty( $options['successemail'] );
+		$options['failureemail'] = ! empty( $options['failureemail'] );
+		$options['criticalemail']  = ! empty( $options['criticalemail']  );
 
 		return $options;
 	}

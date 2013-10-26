@@ -1,8 +1,8 @@
 === Plugin Name ===
 Contributors: georgestephanis, chipbennett
 Tags: automatic updates, updates
-Requires at least: 3.7-alpha
-Tested up to: 3.7-alpha
+Requires at least: 3.7
+Tested up to: 3.7
 Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
