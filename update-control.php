@@ -30,11 +30,15 @@ class Stephanis_Update_Control {
 			}
 
 			if ( $options['plugin'] ) {
-				add_filter( 'auto_upgrade_plugin', '__return_true', 1 );
+				add_filter( 'auto_update_plugin', '__return_true', 1 );
 			}
 
 			if ( $options['theme'] ) {
-				add_filter( 'auto_upgrade_theme', '__return_true', 1 );
+				add_filter( 'auto_update_theme', '__return_true', 1 );
+			}
+
+			if ( ! $options['translation'] ) {
+				add_filter( 'auto_update_translation', '__return_false', 1 );
 			}
 
 		}
