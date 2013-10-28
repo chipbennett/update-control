@@ -4,7 +4,7 @@
  * Plugin URI: http://github.com/georgestephanis/update-control/
  * Description: Adds a manual toggle to the WordPress Admin Interface for managing auto-updates.
  * Author: George Stephanis
- * Version: 1.1.1
+ * Version: 1.1.2
  * Author URI: http://stephanis.info/
  */
 
@@ -226,9 +226,9 @@ class Stephanis_Update_Control {
 	function update_control_core_cb() {
 		?>
 		<select class="update_control_dependency" id="update_control_core" name="update_control_options[core]">
-			<option <?php checked( 'minor' == self::get_option( 'core' ) ); ?> value="minor"><?php _e( 'Minor Updates', 'update-control' ); ?></option>
-			<option <?php checked( 'major' == self::get_option( 'core' ) ); ?> value="major"><?php _e( 'Major Updates', 'update-control' ); ?></option>
-			<option <?php checked( 'dev' == self::get_option( 'core' ) ); ?> value="dev"><?php _e( 'Development Updates', 'update-control' ); ?></option>
+			<option <?php selected( 'minor' == self::get_option( 'core' ) ); ?> value="minor"><?php _e( 'Minor Updates', 'update-control' ); ?></option>
+			<option <?php selected( 'major' == self::get_option( 'core' ) ); ?> value="major"><?php _e( 'Major Updates', 'update-control' ); ?></option>
+			<option <?php selected( 'dev' == self::get_option( 'core' ) ); ?> value="dev"><?php _e( 'Development Updates', 'update-control' ); ?></option>
 		</select>
 		<?php
 	}
