@@ -1,14 +1,16 @@
 <?php
-
 /*
  * Plugin Name: Update Control
  * Plugin URI: http://github.com/georgestephanis/update-control/
  * Description: Adds a manual toggle to the WordPress Admin Interface for managing auto-updates.
  * Author: George Stephanis
- * Version: 1.0
+ * Version: 1.1
  * Author URI: http://stephanis.info/
  */
 
+/**
+ * Update Control Class
+ */
 class Stephanis_Update_Control {
 
 	function go() {
