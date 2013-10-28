@@ -28,7 +28,7 @@ class Stephanis_Update_Control {
 		} else {
 
 			if ( in_array( $options['core'], array( 'dev', 'major', 'minor' ) ) ) {
-				add_filter( 'allow_' . $option['core'] . '_auto_core_updates', '__return_true', 1 );
+				add_filter( 'allow_' . $options['core'] . '_auto_core_updates', '__return_true', 1 );
 			}
 
 			if ( $options['plugin'] ) {
