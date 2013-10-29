@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== Update Control ===
 Contributors: georgestephanis, chipbennett
 Tags: automatic updates, updates
 Requires at least: 3.7
