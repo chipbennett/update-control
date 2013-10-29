@@ -3,7 +3,7 @@ Contributors: georgestephanis, chipbennett
 Tags: automatic updates, updates
 Requires at least: 3.7
 Tested up to: 3.7
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,9 @@ Update Result Emails
 * Selectively disable emails for each result type via the appropriate checkboxes
 
 == Changelog ==
+
+= 1.1.3 =
+* Bugfix. Declare static functions to eliminate e-strict PHP notice.
 
 = 1.1.2 =
 * Bugfix. Use selected() instead of checked() in select form fields.

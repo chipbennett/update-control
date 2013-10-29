@@ -4,7 +4,7 @@
  * Plugin URI: http://github.com/georgestephanis/update-control/
  * Description: Adds a manual toggle to the WordPress Admin Interface for managing auto-updates.
  * Author: George Stephanis
- * Version: 1.1.2
+ * Version: 1.1.3
  * Author URI: http://stephanis.info/
  */
 
