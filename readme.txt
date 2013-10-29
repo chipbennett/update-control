@@ -77,6 +77,9 @@ Debug Email
 
 == Changelog ==
 
+= 1.2 =
+* Feature Update. Add advanced options toggle, and options for VCS check disabling and debug email.
+
 = 1.1.3 =
 * Bugfix. Declare static functions to eliminate e-strict PHP notice.
 
