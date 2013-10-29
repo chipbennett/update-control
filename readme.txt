@@ -3,7 +3,7 @@ Contributors: georgestephanis, chipbennett
 Tags: automatic updates, updates
 Requires at least: 3.7
 Tested up to: 3.7
-Stable tag: 1.1.3
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,10 +60,20 @@ Plugin/Theme/Translation Updates:
 * If you disable updates, Plugin, Theme, and Translation updates will also be disabled
 * Separately enable Plugin, Theme, and Translation updates via the appropriate checkboxes
 
+= What are advanced options? =
+
+Disable VCS Check
+
+* By default, WordPress will check for the existence of VCS (version control system) files, and if any are found, will not perform automatic updates. Selecting "Disable VCS Check?" will force WordPress to bypass this check, and perform updates regardless of the existence of VCS files.
+
 Update Result Emails
 
 * By default, WordPress sends an update result email for successful, failed, and critically failed updates
 * Selectively disable emails for each result type via the appropriate checkboxes
+
+Debug Email
+
+* Enable this option to enable the debug email. This email is sent after ever occurrence of an attempted update, for core, Plugins, Themes, and translation files; and whether the attempt succeeds, fails, or fails critically.
 
 == Changelog ==
 
