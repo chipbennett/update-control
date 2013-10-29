@@ -13,12 +13,12 @@
  */
 class Stephanis_Update_Control {
 
-	function go() {
+	public static function go() {
 		add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
 		add_action( 'init', array( __CLASS__, 'setup_upgrade_filters' ) );
 	}
 
-	function setup_upgrade_filters() {
+	public static function setup_upgrade_filters() {
 		$options = self::get_options();
 
 		// Do these at priority 1, so other folks can easily override it.
@@ -53,7 +53,7 @@ class Stephanis_Update_Control {
 
 	}
 
-	function filter_email( $bool, $type ) {
+	public static function filter_email( $bool, $type ) {
 		$options = self::get_options();
 
 		if ( 'success' == $type && ! $options['successemail'] )
@@ -68,7 +68,7 @@ class Stephanis_Update_Control {
 		return $bool;
 	}
 
-	function get_options() {
+	public static function get_options() {
 		$defaults = array(
 			'active'			=> 'yes',
 			'core'				=> 'minor',
@@ -84,7 +84,7 @@ class Stephanis_Update_Control {
 		return wp_parse_args( $args, $defaults );
 	}
 
-	function get_option( $key ) {
+	public static function get_option( $key ) {
 		$options = self::get_options();
 		if ( isset( $options[ $key ] ) ) {
 			return $options[ $key ];
@@ -92,7 +92,7 @@ class Stephanis_Update_Control {
 		return null;
 	}
 
-	function register_settings() {
+	public static function register_settings() {
 		add_settings_section(
 			'update-control',
 			esc_html__( 'Automatic Updates', 'update-control' ),
@@ -179,7 +179,7 @@ class Stephanis_Update_Control {
 		register_setting( 'general', 'update_control_options', array( __CLASS__, 'sanitize_options' ) );
 	}
 
-	function update_control_settings_section() {
+	public static function update_control_settings_section() {
 		if ( defined( 'AUTOMATIC_UPDATER_DISABLED' ) && AUTOMATIC_UPDATER_DISABLED ) : ?>
 			<p id="update-control-settings-section">
 				<?php _e( 'You have the <code>AUTOMATIC_UPDATER_DISABLED</code> constant set.  Automatic updates are disabled.', 'update-control' ); ?>
@@ -214,7 +214,7 @@ class Stephanis_Update_Control {
 		<?php endif;
 	}
 
-	function update_control_active_cb() {
+	public static function update_control_active_cb() {
 		?>
 		<select id="update_control_active" name="update_control_options[active]">
 			<option <?php selected( 'yes' == self::get_option( 'active' ) ); ?> value="yes"><?php _e( 'Yes', 'update-control' ); ?></option>
@@ -223,7 +223,7 @@ class Stephanis_Update_Control {
 		<?php
 	}
 
-	function update_control_core_cb() {
+	public static function update_control_core_cb() {
 		?>
 		<select class="update_control_dependency" id="update_control_core" name="update_control_options[core]">
 			<option <?php selected( 'minor' == self::get_option( 'core' ) ); ?> value="minor"><?php _e( 'Minor Updates', 'update-control' ); ?></option>
@@ -233,25 +233,25 @@ class Stephanis_Update_Control {
 		<?php
 	}
 
-	function update_control_plugin_cb() {
+	public static function update_control_plugin_cb() {
 		?>
 		<input type="checkbox" class="update_control_dependency" id="update_control_plugin" name="update_control_options[plugin]" <?php checked( self::get_option( 'plugin' ) ); ?> />
 		<?php
 	}
 
-	function update_control_theme_cb() {
+	public static function update_control_theme_cb() {
 		?>
 		<input type="checkbox" class="update_control_dependency" id="update_control_theme" name="update_control_options[theme]" <?php checked( self::get_option( 'theme' ) ); ?> />
 		<?php
 	}
 
-	function update_control_translation_cb() {
+	public static function update_control_translation_cb() {
 		?>
 		<input type="checkbox" class="update_control_dependency" id="update_control_translation" name="update_control_options[translation]" <?php checked( self::get_option( 'translation' ) ); ?> />
 		<?php
 	}
 
-	function update_control_email_active_cb() {
+	public static function update_control_email_active_cb() {
 		?>
 		<select id="update_control_email_active" name="update_control_options[emailactive]">
 			<option <?php selected( 'yes' == self::get_option( 'emailactive' ) ); ?> value="yes"><?php _e( 'Yes', 'update-control' ); ?></option>
@@ -260,25 +260,25 @@ class Stephanis_Update_Control {
 		<?php
 	}
 
-	function update_control_email_success_cb() {
+	public static function update_control_email_success_cb() {
 		?>
 		<input type="checkbox" class="update_control_email_dependency" id="update_control_email_success" name="update_control_options[successemail]" <?php checked( self::get_option( 'successemail' ) ); ?> />
 		<?php
 	}
 
-	function update_control_email_failure_cb() {
+	public static function update_control_email_failure_cb() {
 		?>
 		<input type="checkbox" class="update_control_email_dependency" id="update_control_email_failure" name="update_control_options[failureemail]" <?php checked( self::get_option( 'failureemail' ) ); ?> />
 		<?php
 	}
 
-	function update_control_email_critical_cb() {
+	public static function update_control_email_critical_cb() {
 		?>
 		<input type="checkbox" class="update_control_email_dependency" id="update_control_email_critical" name="update_control_options[criticalemail]" <?php checked( self::get_option( 'criticalemail' ) ); ?> />
 		<?php
 	}
 
-	function sanitize_options( $options ) {
+	public static function sanitize_options( $options ) {
 		$options = (array) $options;
 
 		$options['active'] = ( in_array( $options['active'], array( 'yes', 'no' ) ) ? $options['active'] : 'yes' );
@@ -295,4 +295,4 @@ class Stephanis_Update_Control {
 	}
 
 }
-Stephanis_Update_Control::go();
+add_action( 'init', array( 'Stephanis_Update_Control', 'go' ), 0 );
