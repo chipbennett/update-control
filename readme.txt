@@ -3,7 +3,7 @@ Contributors: georgestephanis, chipbennett
 Tags: automatic updates, updates
 Requires at least: 3.7
 Tested up to: 3.7
-Stable tag: 1.2
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,7 +60,7 @@ Plugin/Theme/Translation Updates:
 * If you disable updates, Plugin, Theme, and Translation updates will also be disabled
 * Separately enable Plugin, Theme, and Translation updates via the appropriate checkboxes
 
-= What are advanced options? =
+= What are advanced settings? =
 
 Disable VCS Check
 
@@ -76,6 +76,9 @@ Debug Email
 * Enable this option to enable the debug email. This email is sent after ever occurrence of an attempted update, for core, Plugins, Themes, and translation files; and whether the attempt succeeds, fails, or fails critically.
 
 == Changelog ==
+
+= 1.2.1 =
+* Make Advanced Settings UI a bit more intuitive.
 
 = 1.2 =
 * Feature Update. Add advanced options toggle, and options for VCS check disabling and debug email.

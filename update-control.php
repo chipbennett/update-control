@@ -4,7 +4,7 @@
  * Plugin URI: http://github.com/georgestephanis/update-control/
  * Description: Adds a manual toggle to the WordPress Admin Interface for managing auto-updates.
  * Author: George Stephanis
- * Version: 1.2
+ * Version: 1.2.1
  * Author URI: http://stephanis.info/
  */
 
@@ -85,7 +85,7 @@ class Stephanis_Update_Control {
 			'plugin'			=> false,
 			'theme'				=> false,
 			'translation'		=> true,
-			'toggleadvanced'	=> 'no',
+			'toggleadvanced'	=> 'hide',
 			'vcscheck'			=> true,
 			'emailactive'		=> 'yes',
 			'successemail'		=> true,
@@ -159,7 +159,7 @@ class Stephanis_Update_Control {
 
 		add_settings_field(
 			'update_control_toggleadvanced',
-			sprintf( '<label for="update_control_toggleadvanced">%1$s</label>', __( 'Configure Advanced Options?', 'update-control' ) ),
+			sprintf( '<label for="update_control_toggleadvanced">%1$s</label>', __( 'Advanced Settings', 'update-control' ) ),
 			array( __CLASS__, 'update_control_toggleadvanced_cb' ),
 			'general',
 			'update-control'
@@ -238,7 +238,7 @@ class Stephanis_Update_Control {
 					}).trigger('change');
 
 					$('#update_control_toggleadvanced').change(function(){
-						if ( 'no' != $(this).val() ) {
+						if ( 'hide' != $(this).val() ) {
 							$('.update_control_advanced').parent().parent().css( { 'display' : 'table-row' } );
 							$('.update_control_advanced').parent().siblings( 'th' ).css( { 'display' : 'block', 'padding-left' : '20px' } );
 						} else {
@@ -306,8 +306,8 @@ class Stephanis_Update_Control {
 	public static function update_control_toggleadvanced_cb() {
 		?>
 		<select class="update_control_dependency" id="update_control_toggleadvanced" name="update_control_options[toggleadvanced]">
-			<option <?php selected( 'yes' == self::get_option( 'toggleadvanced' ) ); ?> value="yes"><?php _e( 'Yes', 'update-control' ); ?></option>
-			<option <?php selected( 'no' == self::get_option( 'toggleadvanced' ) ); ?> value="no"><?php _e( 'No', 'update-control' ); ?></option>
+			<option <?php selected( 'show' == self::get_option( 'toggleadvanced' ) ); ?> value="show"><?php _e( 'Show', 'update-control' ); ?></option>
+			<option <?php selected( 'hide' == self::get_option( 'toggleadvanced' ) ); ?> value="hide"><?php _e( 'Hide', 'update-control' ); ?></option>
 		</select>
 		<?php
 	}
@@ -359,7 +359,7 @@ class Stephanis_Update_Control {
 		$options['plugin'] = ! empty( $options['plugin'] );
 		$options['theme']  = ! empty( $options['theme']  );
 		$options['translation']  = ! empty( $options['translation']  );
-		$options['toggleadvanced'] = 'no';
+		$options['toggleadvanced'] = 'hide';
 		$options['vcscheck']  = ! empty( $options['vcscheck']  );
 		$options['emailactive'] = ( in_array( $options['emailactive'], array( 'yes', 'no' ) ) ? $options['emailactive'] : 'yes' );
 		$options['successemail'] = ! empty( $options['successemail'] );
