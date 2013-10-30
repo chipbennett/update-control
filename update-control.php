@@ -4,7 +4,7 @@
  * Plugin URI: http://github.com/georgestephanis/update-control/
  * Description: Adds a manual toggle to the WordPress Admin Interface for managing auto-updates.
  * Author: George Stephanis
- * Version: 1.2.1
+ * Version: 1.3
  * Author URI: http://stephanis.info/
  */
 
@@ -14,8 +14,15 @@
 class Stephanis_Update_Control {
 
 	public static function go() {
-		add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
-		add_action( 'init', array( __CLASS__, 'setup_upgrade_filters' ) );
+		if ( is_multisite() && ! is_main_site() ) {
+			// Multisite check
+			// only run on the main site of a multisite network
+			return;
+		} else {
+			// Let's roll!
+			add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
+			add_action( 'init', array( __CLASS__, 'setup_upgrade_filters' ) );
+		}
 	}
 
 	public static function setup_upgrade_filters() {
@@ -225,6 +232,10 @@ class Stephanis_Update_Control {
 			<p id="update-control-settings-section">
 				<?php _e( 'This section lets you specify what areas of your WordPress install will be permitted to auto-update.', 'update-control' ); ?>
 			</p>
+			<?php
+			$update_core_obj = get_site_transient( 'update_core' );
+			$last_checked = $update_core_obj->last_checked;
+			?>
 			<script>
 				jQuery(document).ready(function($){
 					$('#update_control_active').change(function(){

@@ -3,7 +3,7 @@ Contributors: georgestephanis, chipbennett
 Tags: automatic updates, updates
 Requires at least: 3.7
 Tested up to: 3.7
-Stable tag: 1.2.1
+Stable tag: 1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,6 +35,8 @@ Activiation and Use
 Plugin settings can be found under Settings -> General.
 
 Not having a separate settings page is a decision based on UI philosophy. The Plugin simply isn't complex enough to warrant a separate settings page. Perhaps a different admin page, such as Dashboard -> Updates, would be more appropriate; however, core does not provide a way to hook into that page to add settings sections.
+
+This Plugin is intentionally very simple. If you want a Plugin with more complexity and its own settings page, you might want to check out [Automatic Updater](http://wordpress.org/plugins/automatic-updater).
 
 = How do I use this Plugin in a multisite network? =
 
@@ -75,7 +77,16 @@ Debug Email
 
 * Enable this option to enable the debug email. This email is sent after ever occurrence of an attempted update, for core, Plugins, Themes, and translation files; and whether the attempt succeeds, fails, or fails critically.
 
+= Why don't automatic updates happen right away? =
+
+You may find that you receive an update notification, but automatic updates don't happen right away. That's okay! WordPress performs automatic updates according to timing based on certain transient values, and it is possible for the update check to happen some time before the automatic update routine executes. The Plugin doesn't modify the timing of the automatic update routine; rather, it just tells WordPress which update types are enabled.
+
+Also, core now has two separate types of updates: manual updates and automatic updates. When you see the manual upgrade notice, WordPress has received the manual update offer, but has not yet received the automatic update offer. The two offers are fetched based on two different transients, and do not happen at the same time. Automatic core updates are served on a staggered rollout, which means that it may take up to 36 hours for the automatic update to execute after receiving the manual upgrade notice. For Plugins and Themes, you should normally see the automatic update routine execute within 12 hours of receiving the manual upgrade notice.
+
 == Changelog ==
+
+= 1.3 =
+* Maintenance Update. Add multisite awareness, more FAQs.
 
 = 1.2.1 =
 * Make Advanced Settings UI a bit more intuitive.
