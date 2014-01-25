@@ -3,8 +3,8 @@
  * Plugin Name: Update Control
  * Plugin URI: http://github.com/georgestephanis/update-control/
  * Description: Adds a manual toggle to the WordPress Admin Interface for managing auto-updates.
- * Author: George Stephanis
- * Version: 1.3
+ * Author: George Stephanis, Chip Bennett
+ * Version: 1.3.1
  * Author URI: http://stephanis.info/
  */
 
@@ -32,7 +32,7 @@ class Stephanis_Update_Control {
 
 		if ( 'no' == $options['active'] ) {
 		
-			add_filter( 'auto_upgrader_disabled', '__return_true', 1 );
+			add_filter( 'auto_updater_disabled', '__return_true', 1 );
 			
 		} else {
 
