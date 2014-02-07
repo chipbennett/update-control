@@ -4,7 +4,7 @@
  * Plugin URI: http://github.com/georgestephanis/update-control/
  * Description: Adds a manual toggle to the WordPress Admin Interface for managing auto-updates.
  * Author: George Stephanis, Chip Bennett
- * Version: 1.3.1
+ * Version: 1.3.2
  * Author URI: http://stephanis.info/
  */
 
@@ -53,7 +53,7 @@ class Stephanis_Update_Control {
 			}
 
 			if ( $options['vcscheck'] ) {
-				add_filter( 'automatic_updates_is_vcs_checkout', '__return_true', 1 );
+				add_filter( 'automatic_updates_is_vcs_checkout', '__return_false', 1 );
 			}
 
 			if ( 'no' == $options['emailactive'] || ! ( $options['successemail'] || $options['failureemail'] || $options['criticalemail'] ) ) {
@@ -93,7 +93,7 @@ class Stephanis_Update_Control {
 			'theme'				=> false,
 			'translation'		=> true,
 			'toggleadvanced'	=> 'hide',
-			'vcscheck'			=> true,
+			'vcscheck'			=> false,
 			'emailactive'		=> 'yes',
 			'successemail'		=> true,
 			'failureemail'		=> true,
@@ -174,7 +174,7 @@ class Stephanis_Update_Control {
 
 		add_settings_field(
 			'update_control_vcscheck',
-			sprintf( '<label for="update_control_vcscheck">%1$s</label>', __( 'Disable VCS Check?', 'update-control' ) ),
+			sprintf( '<label for="update_control_vcscheck">%1$s</label>', __( 'Enable updates for VCS installations?', 'update-control' ) ),
 			array( __CLASS__, 'update_control_vcscheck_cb' ),
 			'general',
 			'update-control'

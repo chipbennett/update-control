@@ -3,7 +3,7 @@ Contributors: georgestephanis, chipbennett
 Tags: automatic updates, updates
 Requires at least: 3.7
 Tested up to: 3.8.1
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,9 +64,9 @@ Plugin/Theme/Translation Updates:
 
 = What are advanced settings? =
 
-Disable VCS Check
+Enable updates for VCS installations
 
-* By default, WordPress will check for the existence of VCS (version control system) files, and if any are found, will not perform automatic updates. Selecting "Disable VCS Check?" will force WordPress to bypass this check, and perform updates regardless of the existence of VCS files.
+* By default, WordPress will check for the existence of VCS (version control system) files, and if any are found, will not perform automatic updates. Selecting "Enable updates for VCS installations?" will force WordPress to bypass this check, and perform updates regardless of the existence of VCS files.
 
 Update Result Emails
 
@@ -84,6 +84,9 @@ You may find that you receive an update notification, but automatic updates don'
 Also, core now has two separate types of updates: manual updates and automatic updates. When you see the manual upgrade notice, WordPress has received the manual update offer, but has not yet received the automatic update offer. The two offers are fetched based on two different transients, and do not happen at the same time. Automatic core updates are served on a staggered rollout, which means that it may take up to 36 hours for the automatic update to execute after receiving the manual upgrade notice. For Plugins and Themes, you should normally see the automatic update routine execute within 12 hours of receiving the manual upgrade notice.
 
 == Changelog ==
+
+= 1.3.2 =
+* Bugfix. Correct handling of VCS check filter.
 
 = 1.3.1 =
 * Bugfix. Correct filter name.
