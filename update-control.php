@@ -32,7 +32,7 @@ class Stephanis_Update_Control {
 
 		if ( 'no' == $options['active'] ) {
 		
-			add_filter( 'auto_updater_disabled', '__return_true', 1 );
+			add_filter( 'automatic_updater_disabled', '__return_true', 1 );
 			
 		} else {
 
