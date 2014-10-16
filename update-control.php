@@ -4,7 +4,7 @@
  * Plugin URI: http://github.com/chipbennett/update-control/
  * Description: Adds a manual toggle to the WordPress Admin Interface for managing auto-updates.
  * Author: George Stephanis, Chip Bennett
- * Version: 1.4
+ * Version: 1.5
  * Author URI: http://chipbennett.net
  */
 
@@ -63,7 +63,7 @@ class Stephanis_Update_Control {
 			}
 
 			if ( $options['debugemail'] ) {
-				add_filter( 'automatic_updates_send_debug_email ', '__return_true', 1 );
+				add_filter( 'automatic_updates_send_debug_email', '__return_false', 1 );
 			}
 
 		}
@@ -212,13 +212,16 @@ class Stephanis_Update_Control {
 			'update-control'
 		);
 
-		add_settings_field(
-			'update_control_email_debug',
-			sprintf( '<label for="update_control_email_debug">%1$s</label>', __( 'Send Update Debug Emails?', 'update-control' ) ),
-			array( __CLASS__, 'update_control_email_debug_cb' ),
-			'general',
-			'update-control'
-		);
+		global $wp_version;
+		if ( false !== strpos( $wp_version, '-' ) ) {
+			add_settings_field(
+				'update_control_email_debug',
+				sprintf( '<label for="update_control_email_debug">%1$s</label>', __( 'Disable Debug Emails for Development Versions?', 'update-control' ) ),
+				array( __CLASS__, 'update_control_email_debug_cb' ),
+				'general',
+				'update-control'
+			);
+		}
 
 		register_setting( 'general', 'update_control_options', array( __CLASS__, 'sanitize_options' ) );
 	}
@@ -362,7 +365,7 @@ class Stephanis_Update_Control {
 		<?php
 	}
 
-	public static function sanitize_options( $options ) {
+	public static function sanitize_options( $options ) { 
 		$options = (array) $options;
 
 		$options['active'] = ( in_array( $options['active'], array( 'yes', 'no' ) ) ? $options['active'] : 'yes' );
