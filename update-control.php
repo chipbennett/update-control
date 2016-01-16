@@ -323,8 +323,8 @@ class Stephanis_Update_Control {
 	public static function update_control_active_cb() {
 		?>
 		<select id="update_control_active" name="update_control_options[active]">
-			<option <?php selected( 'yes' == self::get_option( 'active' ) ); ?> value="yes"><?php _e( 'Yes (default)', 'update-control' ); ?></option>
-			<option <?php selected( 'no' == self::get_option( 'active' ) ); ?> value="no"><?php _e( 'No', 'update-control' ); ?></option>
+			<option <?php selected( 'yes', self::get_option( 'active' ) ); ?> value="yes"><?php _e( 'Yes (default)', 'update-control' ); ?></option>
+			<option <?php selected( 'no',  self::get_option( 'active' ) ); ?> value="no"><?php _e( 'No', 'update-control' ); ?></option>
 		</select>
 		<?php
 	}
@@ -332,9 +332,9 @@ class Stephanis_Update_Control {
 	public static function update_control_core_cb() {
 		?>
 		<select class="update_control_dependency" id="update_control_core" name="update_control_options[core]">
-			<option <?php selected( 'minor' == self::get_option( 'core' ) ); ?> value="minor"><?php _e( 'Minor Updates (default)', 'update-control' ); ?></option>
-			<option <?php selected( 'major' == self::get_option( 'core' ) ); ?> value="major"><?php _e( 'Major Updates', 'update-control' ); ?></option>
-			<option <?php selected( 'dev' == self::get_option( 'core' ) ); ?> value="dev"><?php _e( 'Nightly Builds', 'update-control' ); ?></option>
+			<option <?php selected( 'minor', self::get_option( 'core' ) ); ?> value="minor"><?php _e( 'Minor Updates (default)', 'update-control' ); ?></option>
+			<option <?php selected( 'major', self::get_option( 'core' ) ); ?> value="major"><?php _e( 'Major Updates', 'update-control' ); ?></option>
+			<option <?php selected( 'dev',   self::get_option( 'core' ) ); ?> value="dev"><?php _e( 'Nightly Builds', 'update-control' ); ?></option>
 		</select>
 		<p class="description"><?php _e( 'Minor updates are normally security or bugfix releases, like going from 4.3.1 to 4.3.2 -- generally considered safe, and they don\'t add any new features. Major updates for WordPress are upgrading from 4.3.x to 4.4, and may add new features to your site. Nightly builds will install unreleased still-in-progress versions of WordPress -- probably not best for production sites.', 'update-control' ); ?></p>
 		<?php
@@ -361,8 +361,8 @@ class Stephanis_Update_Control {
 	public static function update_control_toggleadvanced_cb() {
 		?>
 		<select class="update_control_dependency" id="update_control_toggleadvanced" name="update_control_options[toggleadvanced]">
-			<option <?php selected( 'show' == self::get_option( 'toggleadvanced' ) ); ?> value="show"><?php _e( 'Show', 'update-control' ); ?></option>
-			<option <?php selected( 'hide' == self::get_option( 'toggleadvanced' ) ); ?> value="hide"><?php _e( 'Hide', 'update-control' ); ?></option>
+			<option <?php selected( 'show', self::get_option( 'toggleadvanced' ) ); ?> value="show"><?php _e( 'Show', 'update-control' ); ?></option>
+			<option <?php selected( 'hide', self::get_option( 'toggleadvanced' ) ); ?> value="hide"><?php _e( 'Hide', 'update-control' ); ?></option>
 		</select>
 		<?php
 	}
@@ -376,8 +376,8 @@ class Stephanis_Update_Control {
 	public static function update_control_email_active_cb() {
 		?>
 		<select class="update_control_advanced" id="update_control_email_active" name="update_control_options[emailactive]">
-			<option <?php selected( 'yes' == self::get_option( 'emailactive' ) ); ?> value="yes"><?php _e( 'Yes (default)', 'update-control' ); ?></option>
-			<option <?php selected( 'no' == self::get_option( 'emailactive' ) ); ?> value="no"><?php _e( 'No', 'update-control' ); ?></option>
+			<option <?php selected( 'yes', self::get_option( 'emailactive' ) ); ?> value="yes"><?php _e( 'Yes (default)', 'update-control' ); ?></option>
+			<option <?php selected( 'no',  self::get_option( 'emailactive' ) ); ?> value="no"><?php _e( 'No', 'update-control' ); ?></option>
 		</select>
 		<?php
 	}
