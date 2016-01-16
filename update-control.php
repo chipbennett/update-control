@@ -13,6 +13,14 @@
  */
 class Stephanis_Update_Control {
 
+	/**
+	 * Setup hooks for `init` and `admin_init`
+	 *
+	 * @since 2.0
+	 *
+	 * @access public
+	 * @static
+	 */
 	public static function setup_hooks() {
 		if ( is_multisite() && ! is_main_site() ) {
 			// Multisite check
@@ -25,6 +33,14 @@ class Stephanis_Update_Control {
 		}
 	}
 
+	/**
+	 * The method that actually does the work.
+	 *
+	 * @since unknown
+	 *
+	 * @access public
+	 * @static
+	 */
 	public static function setup_upgrade_filters() {
 		$options = self::get_options();
 
@@ -70,6 +86,16 @@ class Stephanis_Update_Control {
 
 	}
 
+	/**
+	 * Filters whether to send emails.
+	 *
+	 * Runs on `auto_core_update_send_email` filter.
+	 *
+	 * @since unknown
+	 *
+	 * @access public
+	 * @static
+	 */
 	public static function filter_email( $bool, $type ) {
 		$options = self::get_options();
 
