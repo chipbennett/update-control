@@ -13,7 +13,7 @@
  */
 class Stephanis_Update_Control {
 
-	public static function go() {
+	public static function setup_hooks() {
 		if ( is_multisite() && ! is_main_site() ) {
 			// Multisite check
 			// only run on the main site of a multisite network
@@ -385,4 +385,5 @@ class Stephanis_Update_Control {
 	}
 
 }
-add_action( 'init', array( 'Stephanis_Update_Control', 'go' ), 0 );
+
+Stephanis_Update_Control::setup_hooks();
