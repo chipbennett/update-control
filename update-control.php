@@ -310,6 +310,7 @@ class Stephanis_Update_Control {
 			<option <?php selected( 'major' == self::get_option( 'core' ) ); ?> value="major"><?php _e( 'Major Updates', 'update-control' ); ?></option>
 			<option <?php selected( 'dev' == self::get_option( 'core' ) ); ?> value="dev"><?php _e( 'Nightly Builds', 'update-control' ); ?></option>
 		</select>
+		<p class="description"><?php _e( 'Minor updates are normally security or bugfix releases, like going from 4.3.1 to 4.3.2 -- generally considered safe, and they don\'t add any new features. Major updates for WordPress are upgrading from 4.3.x to 4.4, and may add new features to your site. Nightly builds will install unreleased still-in-progress versions of WordPress -- probably not best for production sites.', 'update-control' ); ?></p>
 		<?php
 	}
 
