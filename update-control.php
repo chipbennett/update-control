@@ -297,7 +297,7 @@ class Stephanis_Update_Control {
 	public static function update_control_active_cb() {
 		?>
 		<select id="update_control_active" name="update_control_options[active]">
-			<option <?php selected( 'yes' == self::get_option( 'active' ) ); ?> value="yes"><?php _e( 'Yes', 'update-control' ); ?></option>
+			<option <?php selected( 'yes' == self::get_option( 'active' ) ); ?> value="yes"><?php _e( 'Yes (default)', 'update-control' ); ?></option>
 			<option <?php selected( 'no' == self::get_option( 'active' ) ); ?> value="no"><?php _e( 'No', 'update-control' ); ?></option>
 		</select>
 		<?php
@@ -306,7 +306,7 @@ class Stephanis_Update_Control {
 	public static function update_control_core_cb() {
 		?>
 		<select class="update_control_dependency" id="update_control_core" name="update_control_options[core]">
-			<option <?php selected( 'minor' == self::get_option( 'core' ) ); ?> value="minor"><?php _e( 'Minor Updates', 'update-control' ); ?></option>
+			<option <?php selected( 'minor' == self::get_option( 'core' ) ); ?> value="minor"><?php _e( 'Minor Updates (default)', 'update-control' ); ?></option>
 			<option <?php selected( 'major' == self::get_option( 'core' ) ); ?> value="major"><?php _e( 'Major Updates', 'update-control' ); ?></option>
 			<option <?php selected( 'dev' == self::get_option( 'core' ) ); ?> value="dev"><?php _e( 'Development Updates', 'update-control' ); ?></option>
 		</select>
@@ -349,7 +349,7 @@ class Stephanis_Update_Control {
 	public static function update_control_email_active_cb() {
 		?>
 		<select class="update_control_advanced" id="update_control_email_active" name="update_control_options[emailactive]">
-			<option <?php selected( 'yes' == self::get_option( 'emailactive' ) ); ?> value="yes"><?php _e( 'Yes', 'update-control' ); ?></option>
+			<option <?php selected( 'yes' == self::get_option( 'emailactive' ) ); ?> value="yes"><?php _e( 'Yes (default)', 'update-control' ); ?></option>
 			<option <?php selected( 'no' == self::get_option( 'emailactive' ) ); ?> value="no"><?php _e( 'No', 'update-control' ); ?></option>
 		</select>
 		<?php
