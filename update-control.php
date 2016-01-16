@@ -247,32 +247,40 @@ class Stephanis_Update_Control {
 
 			<script>
 				jQuery(document).ready(function($){
-					$('#update_control_active').change(function(){
+					var $activeSelectBox  = $('#update_control_active'),
+						$ucFormTable      = $activeSelectBox.closest('table'),
+						$ucDependency     = $ucFormTable.find('.update_control_dependency'),
+						$ucToggleAdvanced = $('#update_control_toggleadvanced'),
+						$ucAdvanced       = $ucFormTable.find('.update_control_advanced'),
+						$ucAdvancedRows   = $ucAdvanced.closest('tr'),
+						$ucEmailDep       = $ucAdvanced.filter('.update_control_email_dependency');
+
+					$activeSelectBox.change(function(){
 						if ( 'yes' != $(this).val() ) {
-							$('.update_control_dependency').attr( 'readonly', 'readonly' );
-							$('#update_control_toggleadvanced').val('no');
-							$('.update_control_advanced' ).parent().parent().css( 'display', 'none' );
+							$ucDependency.attr( 'readonly', 'readonly' );
+							$ucToggleAdvanced.val( 'no' );
+							$ucAdvancedRows.css( 'display', 'none' );
 						} else {
-							$('.update_control_dependency' ).removeAttr( 'readonly' );
+							$ucDependency.removeAttr( 'readonly' );
 						}
 					}).trigger('change');
 
-					$('#update_control_toggleadvanced').change(function(){
+					$ucToggleAdvanced.change(function(){
 						if ( 'hide' != $(this).val() ) {
-							$('.update_control_advanced').parent().parent().css( { 'display' : 'table-row' } );
-							$('.update_control_advanced').parent().siblings( 'th' ).css( { 'display' : 'block', 'padding-left' : '20px' } );
+							$ucAdvancedRows.css( { 'display' : 'table-row' } );
+							$ucAdvancedRows.find( 'th' ).css( { 'display' : 'block', 'padding-left' : '20px' } );
 						} else {
-							$('.update_control_advanced' ).parent().parent().css( 'display', 'none' );
+							$ucAdvancedRows.css( 'display', 'none' );
 						}
 					}).trigger('change');
 
 					$('#update_control_email_active').change(function(){
 						if ( 'yes' != $(this).val() ) {
-							$('.update_control_email_dependency.update_control_advanced').attr( 'readonly', 'readonly' );
-							$('.update_control_email_dependency.update_control_advanced').parent().siblings( 'th' ).children().css( { 'padding-left' : '20px', 'display' : 'block' } );
+							$ucEmailDep.attr( 'readonly', 'readonly' );
+							$ucEmailDep.parent().siblings( 'th' ).children().css( { 'padding-left' : '20px', 'display' : 'block' } );
 						} else {
-							$('.update_control_email_dependency.update_control_advanced' ).removeAttr( 'readonly' );
-							$('.update_control_email_dependency.update_control_advanced').parent().siblings( 'th' ).children().css( { 'padding-left' : '20px', 'display' : 'block' } );
+							$ucEmailDep.removeAttr( 'readonly' );
+							$ucEmailDep.parent().siblings( 'th' ).children().css( { 'padding-left' : '20px', 'display' : 'block' } );
 						}
 					}).trigger('change');
 				});
