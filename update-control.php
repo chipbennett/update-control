@@ -244,10 +244,7 @@ class Stephanis_Update_Control {
 			<p id="update-control-settings-section">
 				<?php _e( 'This section lets you specify what areas of your WordPress install will be permitted to auto-update.', 'update-control' ); ?>
 			</p>
-			<?php
-			$update_core_obj = get_site_transient( 'update_core' );
-			$last_checked = $update_core_obj->last_checked;
-			?>
+
 			<script>
 				jQuery(document).ready(function($){
 					$('#update_control_active').change(function(){
