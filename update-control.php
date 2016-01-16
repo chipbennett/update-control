@@ -308,7 +308,7 @@ class Stephanis_Update_Control {
 		<select class="update_control_dependency" id="update_control_core" name="update_control_options[core]">
 			<option <?php selected( 'minor' == self::get_option( 'core' ) ); ?> value="minor"><?php _e( 'Minor Updates (default)', 'update-control' ); ?></option>
 			<option <?php selected( 'major' == self::get_option( 'core' ) ); ?> value="major"><?php _e( 'Major Updates', 'update-control' ); ?></option>
-			<option <?php selected( 'dev' == self::get_option( 'core' ) ); ?> value="dev"><?php _e( 'Development Updates', 'update-control' ); ?></option>
+			<option <?php selected( 'dev' == self::get_option( 'core' ) ); ?> value="dev"><?php _e( 'Nightly Builds', 'update-control' ); ?></option>
 		</select>
 		<?php
 	}
