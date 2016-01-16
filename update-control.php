@@ -73,14 +73,23 @@ class Stephanis_Update_Control {
 	public static function filter_email( $bool, $type ) {
 		$options = self::get_options();
 
-		if ( 'success' == $type && ! $options['successemail'] )
-			return false;
-
-		if ( 'fail' == $type && ! $options['failureemail'] )
-			return false;
-
-		if ( 'critical' == $type && ! $options['criticalemail'] )
-			return false;
+		switch ( $type ) {
+			case 'success' :
+				if ( false === $options['successemail'] ) {
+					return false;
+				}
+				break;
+			case 'fail' :
+				if ( false === $options['failureemail'] ) {
+					return false;
+				}
+				break;
+			case 'critical' :
+				if ( false === $options['criticalemail'] ) {
+					return false;
+				}
+				break;
+		}
 
 		return $bool;
 	}
