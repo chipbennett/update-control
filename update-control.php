@@ -96,18 +96,18 @@ class Stephanis_Update_Control {
 
 	public static function get_options() {
 		$defaults = array(
-			'active'			=> 'yes',
-			'core'				=> 'minor',
-			'plugin'			=> false,
-			'theme'				=> false,
-			'translation'		=> true,
-			'toggleadvanced'	=> 'hide',
-			'vcscheck'			=> false,
-			'emailactive'		=> 'yes',
-			'successemail'		=> true,
-			'failureemail'		=> true,
-			'criticalemail'		=> true,
-			'debugemail'		=> false,
+			'active'			=> 'yes',   // Options: 'yes' 'no'
+			'core'				=> 'minor', // Options: 'dev' 'major' 'minor'
+			'plugin'			=> false,   // Options: true false
+			'theme'				=> false,   // Options: true false
+			'translation'		=> true,    // Options: true false
+			'toggleadvanced'	=> 'hide',  // Options: 'show' 'hide'
+			'vcscheck'			=> false,   // Options: true false
+			'emailactive'		=> 'yes',   // Options: 'yes' 'no'
+			'successemail'		=> true,    // Options: true false
+			'failureemail'		=> true,    // Options: true false
+			'criticalemail'		=> true,    // Options: true false
+			'debugemail'		=> false,   // Options: true false
 		);
 		$args = get_option( 'update_control_options', array() );
 		return wp_parse_args( $args, $defaults );
