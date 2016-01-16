@@ -409,18 +409,18 @@ class Stephanis_Update_Control {
 	public static function sanitize_options( $options ) { 
 		$options = (array) $options;
 
-		$options['active'] = ( in_array( $options['active'], array( 'yes', 'no' ) ) ? $options['active'] : 'yes' );
-		$options['core'] = ( in_array( $options['core'], array( 'minor', 'major', 'dev' ) ) ? $options['core'] : 'minor' );
-		$options['plugin'] = ! empty( $options['plugin'] );
-		$options['theme']  = ! empty( $options['theme']  );
-		$options['translation']  = ! empty( $options['translation']  );
+		$options['active']         = ( in_array( $options['active'], array( 'yes', 'no' ) ) ? $options['active'] : 'yes' );
+		$options['core']           = ( in_array( $options['core'], array( 'minor', 'major', 'dev' ) ) ? $options['core'] : 'minor' );
+		$options['plugin']         = ! empty( $options['plugin'] );
+		$options['theme']          = ! empty( $options['theme']  );
+		$options['translation']    = ! empty( $options['translation']  );
 		$options['toggleadvanced'] = 'hide';
-		$options['vcscheck']  = ! empty( $options['vcscheck']  );
-		$options['emailactive'] = ( in_array( $options['emailactive'], array( 'yes', 'no' ) ) ? $options['emailactive'] : 'yes' );
-		$options['successemail'] = ! empty( $options['successemail'] );
-		$options['failureemail'] = ! empty( $options['failureemail'] );
+		$options['vcscheck']       = ! empty( $options['vcscheck']  );
+		$options['emailactive']    = ( in_array( $options['emailactive'], array( 'yes', 'no' ) ) ? $options['emailactive'] : 'yes' );
+		$options['successemail']   = ! empty( $options['successemail'] );
+		$options['failureemail']   = ! empty( $options['failureemail'] );
 		$options['criticalemail']  = ! empty( $options['criticalemail']  );
-		$options['debugemail']  = ! empty( $options['debugemail']  );
+		$options['debugemail']     = ! empty( $options['debugemail']  );
 
 		return $options;
 	}
