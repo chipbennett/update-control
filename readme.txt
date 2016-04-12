@@ -1,13 +1,13 @@
 === Update Control ===
 Contributors: georgestephanis, chipbennett
 Tags: automatic updates, updates
+Requires at least: 3.7
+Tested up to: 4.5
+Stable tag: 1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Requires at least: 3.7
-Tested up to: 4.3
-Stable tag: 1.5
 
-Adds options to your Settings > General page that let you tweak auto-updates.
+This adds some options to your Settings > General page that let you tweak auto-updates.
 
 == Description ==
 
